@@ -17,7 +17,7 @@
 
     --container-width-lg: 84%;
     --container-width-md: 92%;
-    --form-width: 50%;
+    --form-width: 60%;
 
     --radius-1: 0.3rem;
     --radius-2: 0.6rem;
@@ -260,4 +260,36 @@ footer{
     aspect-ratio: 1/1;
     border-radius: var(--radius-2);
     overflow: hidden;
+}
+
+/***** Post Detail ******/
+
+.post-detail{
+    width: var(--form-width);
+    background: var(--color-white);
+    margin-inline: auto;
+    padding: 1rem 0;
+}
+
+.post-detail__header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.post-detail__buttons{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.post-detail__thumbnail{
+    margin: 1rem 0;
+    height: fit-content;
+    max-height: 30rem;
+    overflow: hidden;
+}
+
+.post-detail p{
+    margin-bottom: 0.7rem;
 }
