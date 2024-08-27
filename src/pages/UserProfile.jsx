@@ -4,12 +4,14 @@ import Avatar from '../images/pp.png'
 import {FaEdit, FaCheck} from 'react-icons/fa'
 
 const UserProfile = () => {
+  
 const [avatar, setAvatar] = useState(Avatar)
 const [name,setName] = useState('')
 const [email,setEmail] = useState('')
 const [currentPassword,setCurrentPassword] = useState('')
 const [newPassword,setNewPassword] = useState('')
 const [confirmedPassword,setConfirmedPassword] = useState('')
+
   return (
     <section className="profile">
       <div className="container profile__container">
@@ -27,7 +29,7 @@ const [confirmedPassword,setConfirmedPassword] = useState('')
               <label htmlFor="avatar"><FaEdit/></label>
             </form>
 
-            <button className="profile__avatar-btn"><FaCheck/></button>
+            {/* <button className="profile__avatar-btn"><FaCheck/></button> */}
 
           </div>
 
