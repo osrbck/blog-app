@@ -1,12 +1,12 @@
 const express = require('express')
 const cors = require('cors')
 const {connect} = require ('mongoose')
-require('dotenv').config
+require('dotenv').config()
 
-const userRoutes = require('./routes/userRoutes.js')
-const postRoutes = require('./routes/postRoutes.js')
+const userRoutes = require('./routes/userRoutes')
+const postRoutes = require('./routes/postRoutes')
 
-const {notFound, errorHandler} = require('./middleware/errorMiddleware.js')
+const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 
 const app = express();
 app.use(express.json({extended : true}))
