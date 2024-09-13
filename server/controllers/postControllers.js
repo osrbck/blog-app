@@ -62,21 +62,41 @@ const getPosts = async (req, res, next) => {
 // GET : api/posts/:id
 // PROTECTED
 const getPost = async (req, res, next) => {
-    res.json("Get single post")
+    try {
+        const postID = req.params.id;
+        const post = await Post.findById(postID);
+        if(!post)
+            return next(new HttpError("Post not found.", 404));
+        res.status(200).json(post);
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 // ========================== GET POSTS BY CATEGORY
 // GET : api/posts/categories/:category
 // UNPROTECTED
 const getCatPosts = async (req, res, next) => {
-    res.json("Get posts by category")
+    try {
+        const {category} = req.params;
+        const catPosts = await Post.find({category}).sort({createdAt: -1})
+        res.status(200).json(catPosts)
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 // ========================== GET AUTHOR'S POSTS
 // GET : api/posts/users/:id
 // UNPROTECTED
 const getUserPosts = async (req, res, next) => {
-    res.json("Get user posts")
+    try {
+        const {id} = req.params;
+        const posts = await Post.find({creator: id}).sort({createdAt: -1});
+        res.status(200).json(posts);
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 // ========================== EDIT POST
