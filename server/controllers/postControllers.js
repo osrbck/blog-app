@@ -144,10 +144,34 @@ const editPost = async (req, res, next) => {
 }
 
 // ========================== DELETE POST
-// POST : api/posts/delete/:id
+// DELETE : api/posts/delete/:id
 // PROTECTED
 const deletePost = async (req, res, next) => {
-    res.json("Delete post")
+    try {
+        const postID = req.params.id
+        if(!postID) return next(new HttpError("Post unavailable.", 400));
+
+        const post = await Post.findById(postID)
+        const fileName = post?.thumbnail
+        //delete thumbnail from uploads
+        if(req.user.id == post?.creator){
+            fs.unlink(path.join(__dirname, '..', 'uploads', fileName), async (err)=>{
+                if(err) return next(new HttpError(err));
+                else{
+                    await Post.findByIdAndDelete(postID);
+                    //find user and reduce post count by 1
+                    const currentUser = await User.findById(req.user.id)
+                    const userPostCount = currentUser?.posts -1;
+                    await User.findByIdAndUpdate(currentUser, {posts: userPostCount})
+
+                    res.json(`Post ${postID} deleted successfully.`)
+                }
+            })
+        } else return next(new HttpError("Post could not be deleted.", 403));
+
+    } catch (error) {
+        return next(new HttpError(error));
+    }
 }
 
 module.exports = {createPost, getPosts, getPost, getCatPosts, getUserPosts, editPost, deletePost}
