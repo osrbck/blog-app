@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DUMMY_POSTS } from '../data'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/userContext'
 
 const EditPost = () => {
 
@@ -9,6 +11,17 @@ const EditPost = () => {
   const [category, setCategory] = useState('Uncategorized')
   const [desc, setDesc] = useState('')
   const [thumb, setThumb] = useState('')
+
+  const navigate = useNavigate()
+  const {currentUser} = useContext(UserContext)
+  const token = currentUser?.token
+
+  //redirect to login page for any user
+  useEffect(() =>{
+    if(!token){
+      navigate('/login')
+    }
+  }, [])
 
   const modules = {
     toolbar: [
@@ -29,7 +42,7 @@ const EditPost = () => {
 
 
 
-  const POST_CATEGORIES = ["Agriculture", "Business", "Education", "Entertainment", "Art", "Invesment",
+  const POST_CATEGORIES = ["Agriculture", "Business", "Education", "Entertainment", "Art", "Investment",
     "Weather", "Uncategorized"]
 
   return (

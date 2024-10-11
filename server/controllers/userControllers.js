@@ -101,51 +101,59 @@ const getUser = async (req, res, next) => {
 // PROTECTED
 const changeAvatar = async (req, res, next) => {
     try {
-        if(!req.files.avatar){
-            return next(new HttpError("Please choose an image.", 422))
+        if (!req.files || !req.files.avatar) {
+            return next(new HttpError("Please choose an image.", 422));
         }
         
         // find user
-        const user = await User.findById(req.user.id)
+        const user = await User.findById(req.user.id);
 
-        //delete old avatar
-        if(user.avatar){
-            fs.unlink(path.join(__dirname, '..', 'uploads', user.avatar), (err) =>{
-                if(err) {
-                    return next(new HttpError(err));
-                }
-            })
+        //delete old avatar if exists
+        if (user.avatar) {
+            const oldAvatarPath = path.join(__dirname, '..', 'uploads', user.avatar);
+            try {
+                await fs.promises.unlink(oldAvatarPath); // Use promises to ensure it's awaited
+                console.log('Old avatar deleted successfully.');
+            } catch (err) {
+                console.log('Failed to delete old avatar:', err);
+            }
         }
 
-        const {avatar} = req.files;
-        //check file size
-        if(avatar.size > 500000){
+        const { avatar } = req.files;
+        
+        // check file size
+        if (avatar.size > 500000) {
             return next(new HttpError("Profile picture is too big. Should be less than 500kb", 422));
         }
 
-        let fileName;
-        fileName = avatar.name;
-        let splittedFileName = fileName.split('.');
-        let newFileName = splittedFileName[0] + uuid() + '.' + splittedFileName[splittedFileName.length -1]
-        avatar.mv(path.join(__dirname, '..', 'uploads', newFileName), async (err) =>{
+        // Create a new unique file name
+        const fileExtension = path.extname(avatar.name); // Get the file extension
+        const newFileName = `${uuid()}${fileExtension}`;  // Create a unique file name using uuid
+
+        // Move the new avatar to the uploads directory
+        avatar.mv(path.join(__dirname, '..', 'uploads', newFileName), async (err) => {
             if (err) {
-                return next(new HttpError(err));
+                return next(new HttpError(err.message, 500));
             }
 
-            const updatedAvatar = await User.findByIdAndUpdate(req.user.id, {avatar: fileName}, {new: true})
+            // Update user's avatar in the database with the new file name
+            const updatedAvatar = await User.findByIdAndUpdate(
+                req.user.id, 
+                { avatar: newFileName }, 
+                { new: true }
+            );
 
-            if(!updatedAvatar){
-                return next(new HttpError("Avatar could not be changed", 422));
+            if (!updatedAvatar) {
+                return next(new HttpError("Avatar could not be changed.", 422));
             }
 
-            res.status(200).json(updatedAvatar)
-        })
-
+            res.status(200).json({ avatar: updatedAvatar.avatar });
+        });
         
     } catch (error) {
-        return next(new HttpError(error))
+        return next(new HttpError(error.message, 500));
     }
-}
+};
 
 
 
