@@ -8,9 +8,13 @@ const PostItem = ({postID, category, title, description, authorID, thumbnail, cr
     const postTitle = title.length > 30 ? title.substr(0, 30) + "..." : title;
 
   return (
-    <article className="post">
+    <article className="post container-posts">
         <div className="post__thumbnail">
-            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} alt={title}/>
+        <img 
+            src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} 
+            alt={title} 
+            style={{ height: '300px', width: '400px', objectFit: 'cover', borderRadius: '.8rem' }} 
+            />
         </div>
         <div className="post__content">
             <Link to={`/posts/${postID}`}>
@@ -18,7 +22,7 @@ const PostItem = ({postID, category, title, description, authorID, thumbnail, cr
             </Link>
             <p>{postDescription}</p>
             <div className="post__footer">
-                <PostAuthor authorID={authorID} createdAt={createdAt}/>
+                <PostAuthor authorID={authorID} createdAt={createdAt} />
                 <Link to={`/posts/categories/${category}`} className='btn category'>{category}</Link>
             </div>
         </div>

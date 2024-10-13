@@ -209,6 +209,8 @@ footer{
 /***** HOME ******/
 /***** Posts ******/
 
+
+
 .posts__container{
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -228,11 +230,12 @@ footer{
     box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
 }
 
-.post_thumbnail{
-    border-radius: var(--radius-3);
-    overflow: hidden;
-    height: 16rem;
+.post__thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .post__content{
     margin-top: 1.5rem;
@@ -252,14 +255,7 @@ footer{
 .post__author{
     display: flex;
     gap: 1rem;
-    align-items: flex-start;
-}
-
-.post__author-avatar{
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    border-radius: var(--radius-2);
-    overflow: hidden;
+    align-items: center;
 }
 
 /***** Post Detail ******/
@@ -502,7 +498,7 @@ input, select, textarea{
 
 /***** MEDIA QUARIES ******/
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 976px) {
     h1 {
         font-size: 2rem;
     }
@@ -516,7 +512,7 @@ input, select, textarea{
     }
 
     .container {
-        width: var(--container-width-md);
+        width: var(--container-width-lg);
     }
 
     .nav__container {
@@ -570,8 +566,12 @@ input, select, textarea{
     }
 
     .posts__container {
-        grid-template-columns: 1fr;
         gap: 1rem;
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .footer__categories {
