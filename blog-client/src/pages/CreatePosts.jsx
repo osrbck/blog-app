@@ -22,7 +22,7 @@ const CreatePosts = () => {
     if(!token){
       navigate('/login')
     }
-  }, [])
+  }, [navigate, token])
 
   const modules = {
     toolbar: [
@@ -45,27 +45,34 @@ const CreatePosts = () => {
   const createPost = async (e) => {
     e.preventDefault();
     const postData = new FormData();
-    postData.set('title', title)
-    postData.set('category', category)
-    postData.set('description', description)
-    postData.set('thumbnail', thumbnail)
-
+    postData.set('title', title);
+    postData.set('category', category);
+    postData.set('description', description);
+    postData.set('thumbnail', thumbnail);
+  
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`, postData, {withCredentials: true, headers : {Authorization: `Baerer ${token}`}})
-      if(response.status === 201){
-        return navigate('/')
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/posts`,
+        postData,
+        {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      if (response.status === 201) {
+        navigate('/');
       }
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err.response?.data?.message || 'Something went wrong');
     }
-
-  } 
+  };
+   
 
   return (
     <section className='create-post'>
       <div className="container">
         <h2 className='center'>Create post</h2>
-        {error && <p className='error'>{error}</p>}
+        {error && <p className='form__error-message'>{error}</p>}
         <form className="form create__post-form" onSubmit={createPost}>
           <input type="text" placeholder='Title' value={title} onChange={e => setTitle(e.target.value)} autoFocus/>
           <select name="category" value={category} onChange={e => setCategory(e.target.value)}>
