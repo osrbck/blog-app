@@ -214,7 +214,7 @@ footer{
 .posts__container{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap:4rem;
+    gap:3rem;
 }
 
 .post {
@@ -300,9 +300,10 @@ footer{
 
 .author {
     background:var(--color-white);
-    padding: 1rem;
+    padding: 2rem;
     border-radius: var(--radius-3);
     display: flex;
+    align-items:flex-end;
     gap: 1rem;
     transition: var(--transition);
 }
@@ -312,9 +313,9 @@ footer{
 }
 
 .author__avatar {
-    width: 5rem;
+    width: 8rem;
     aspect-ratio: 1/1;
-    border-radius: 50%;
+    border-radius: var(--radius-4);
     border: 0.3rem solid var(--color-bg);
     overflow: hidden;
 }
@@ -497,6 +498,15 @@ input, select, textarea{
 }
 
 /***** MEDIA QUARIES ******/
+
+@media screen and (max-width: 1400px) {
+    .posts__container{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap:2rem;
+    }
+}
+
 
 @media screen and (max-width: 976px) {
     h1 {

@@ -21,11 +21,11 @@ const Header = () => {
     <nav>
       <div className="container nav__container">
         <Link to="/" className='nav__logo' onClick={closeNavHandler}>
-          <img src={Logo} alt="MEU logo" />
+          <img src={Logo} alt="Logo" />
         </Link>
         {currentUser?.id && isNavShowing && 
           <ul className="nav__menu">
-            <li><Link to="/profile/osrbck" onClick={closeNavHandler}>osrbck</Link></li>
+            <li><Link to="/profile/osrbck" onClick={closeNavHandler}>{currentUser?.name}</Link></li>
             <li><Link to="/create" onClick={closeNavHandler}>Create Post</Link></li>
             <li><Link to="/authors" onClick={closeNavHandler}>Authors</Link></li>
             <li><Link to="/logout" onClick={closeNavHandler}>Logout</Link></li>
