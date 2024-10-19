@@ -40,7 +40,7 @@ const CreatePosts = () => {
       'link', 'image'
     ]
 
-  const POST_CATEGORIES = ["Houseplants", "Flower Legends", "Art", "Invesment"]
+  const POST_CATEGORIES = ["Houseplants", "Flower Legends", "Art", "Investment"]
 
   const createPost = async (e) => {
     e.preventDefault();

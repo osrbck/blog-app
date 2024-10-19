@@ -45,7 +45,7 @@ const EditPost = () => {
     ]
 
 
-    const POST_CATEGORIES = ["Houseplants", "Flower Legends", "Art", "Invesment"]
+    const POST_CATEGORIES = ["Houseplants", "Flower Legends", "Art", "Investment"]
 
 
     useEffect(() =>{
