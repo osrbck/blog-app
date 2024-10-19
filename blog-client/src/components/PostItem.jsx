@@ -13,7 +13,7 @@ const PostItem = ({postID, category, title, description, authorID, thumbnail, cr
         <img 
             src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} 
             alt={title} 
-            style={{ height: '300px', width: '400px', objectFit: 'cover', borderRadius: '.8rem' }} 
+            className="responsive-image"
             />
         </div>
         <div className="post__content">
