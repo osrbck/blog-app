@@ -29,7 +29,7 @@ const Posts = () => {
           setIsLoading(false);
         }, delay);
 
-      };
+      }
       fetchPosts();
       
     }, []);

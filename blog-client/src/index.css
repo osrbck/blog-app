@@ -315,7 +315,7 @@ footer{
 .author__avatar {
     width: 8rem;
     aspect-ratio: 1/1;
-    border-radius: var(--radius-4);
+    border-radius: 50%;
     border: 0.3rem solid var(--color-bg);
     overflow: hidden;
 }
@@ -469,6 +469,7 @@ input, select, textarea{
 
 .dashboard__post-thumbnail{
     width: 4rem;
+    height: 2rem;
     border-radius: var(--radius-1);
     overflow: hidden;
 }

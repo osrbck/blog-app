@@ -1,39 +1,43 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
-  
   const [userData, setUserData] = useState({
-    name : '',
+    name: '',
     email: '',
     password: '',
-    password2:''   
-  })
-  const [error, setError] = useState('')
-  const navigate = useNavigate
+    password2: ''
+  });
+  
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Call useNavigate as a function
 
   const changeInputHandler = (e) => {
-    setUserData(prevState =>{
-      return {...prevState, [e.target.name] : e.target.value}
-    })
-  }
+    setUserData(prevState => ({
+      ...prevState, 
+      [e.target.name]: e.target.value
+    }));
+  };
 
-  const registerUser = async (e) =>{
-    e.preventDefault()
-    setError('')
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setError('');
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
-      const newUser = await response.data;
-      console.log(newUser)
-      if(!newUser){
-        setError("Please try again.")
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData);
+      const newUser = response.data;
+      console.log(newUser);
+      if (!newUser) {
+        setError("Please try again.");
+      } else {
+        navigate('/'); // Navigate after successful registration
       }
-      navigate('/')
     } catch (err) {
-      setError(err.response.data.message)
+      // Handle error more safely
+      const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
+      setError(errorMessage);
     }
-  }
+  };
 
   return (
     <section className="register">
@@ -50,7 +54,7 @@ const Register = () => {
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

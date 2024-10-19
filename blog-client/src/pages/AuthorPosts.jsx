@@ -27,7 +27,7 @@ const AuthorPosts = () => {
         const end = Date.now();
         const timeElapsed = end - start;
 
-        const delay = Math.max(2000 - timeElapsed, 0);
+        const delay = Math.max(1500 - timeElapsed, 0);
 
         setTimeout(() => {
           setIsLoading(false);
