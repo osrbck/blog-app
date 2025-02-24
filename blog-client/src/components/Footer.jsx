@@ -11,7 +11,7 @@ const Footer = () => {
         <li><Link to="/posts/categories/FlowerLegends">Flower Legends</Link></li>
       </ul>
       <div className="footer__copyright">
-        <small>All Rights NOT Reserved &copy; Copyright, Little Palm Media Soft Tutorials</small>
+        <small>All Rights Reserved &copy; Copyright, Little Palm Media Tutorials by <a href='https://www.osmansaribacak.online/' target='_blank'>OSRBCK</a></small>
       </div>
     </footer>
   )
